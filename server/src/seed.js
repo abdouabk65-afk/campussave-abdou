@@ -33,17 +33,16 @@ export function seed() {
   const O = [
     ['1', 's1', 'Panier sandwichs', 'Sandwich', '3 sandwichs variés du jour (poulet, thon, fromage), préparés ce matin.', 12, 5, 6, 'sandwiches', 0, 90],
     ['2', 's3', 'Couscous végétarien', 'Plat chaud', 'Semoule fine, sept légumes, pois chiches et raisins secs. Généreux et parfumé.', 14, 6, 8, 'couscous', 15, 90],
-   
-    ['4', 's6', 'Jus frais pressés', 'Boisson', 'Trois bouteilles pressées minute : orange, pomme-kiwi et grenade.', 8, 3, 10, 'juice', 30, 90],
-    ['5', 's4', 'Pizza du jour', 'Plat chaud', 'Deux parts généreuses, pâte maison et mozzarella fondante.', 13, 5.5, 7, 'pizza', 15, 90],
-    ['6', 's1', 'Wrap poulet crudités', 'Sandwich', 'Wrap grillé au poulet mariné, crudités croquantes et sauce yaourt.', 9, 4, 9, 'wrap', 0, 90],
-    ['7', 's3', 'Mousli poulet-citron', 'Plat chaud', 'Tajine mijoté au citron confit et olives vertes, avec du pain maison.', 12, 5.5, 6, 'tajine', 30, 90],
-    ['8', 's2', 'Croissants et pains au chocolat', 'Pâtisserie', 'Panier de viennoiseries pur beurre de la fournée de l’après-midi.', 10, 4, 8, 'croissant', 30, 60],
-    ['9', 's1', 'Café gourmand', 'Boisson', 'Un espresso serré accompagné d’une mignardise du chef.', 7, 3, 12, 'coffee', 0, 120],
     
-    ['11', 's3', 'Bricks à la viande ×6', 'Plat chaud', 'Six bricks dorées à la viande hachée, œuf et persil. Croustillantes.', 10, 4, 0, 'brick', 45, 75],
-    ['12', 's5', 'Smoothie bowl fruits rouges', 'Autre', 'Bowl onctueux, granola maison et graines de chia.', 11, 4.5, 1, 'smoothie', 30, 90],
-    ['13', 's5', 'Bowl légumes rôtis', 'Salade', 'Quinoa, légumes rôtis du marché, avocat et citron beldi.', 12, 5, 7, 'quinoa', 15, 120],
+    ['3', 's4', 'Pizza du jour', 'Plat chaud', 'Deux parts généreuses, pâte maison et mozzarella fondante.', 13, 5.5, 7, 'pizza', 15, 90],
+    ['4', 's1', 'Wrap poulet crudités', 'Sandwich', 'Wrap grillé au poulet mariné, crudités croquantes et sauce yaourt.', 9, 4, 9, 'wrap', 0, 90],
+    ['5', 's3', 'Mousli poulet-citron', 'Plat chaud', 'Tajine mijoté au citron confit et olives vertes, avec du pain maison.', 12, 5.5, 6, 'tajine', 30, 90],
+    ['6', 's2', 'Croissants et pains au chocolat', 'Pâtisserie', 'Panier de viennoiseries pur beurre de la fournée de l’après-midi.', 10, 4, 8, 'croissant', 30, 60],
+    ['7', 's1', 'Café gourmand', 'Boisson', 'Un espresso serré accompagné d’une mignardise du chef.', 7, 3, 12, 'coffee', 0, 120],
+    
+    ['8', 's3', 'Bricks à la viande ×6', 'Plat chaud', 'Six bricks dorées à la viande hachée, œuf et persil. Croustillantes.', 10, 4, 0, 'brick', 45, 75],
+    ['9', 's5', 'Smoothie bowl fruits rouges', 'Autre', 'Bowl onctueux, granola maison et graines de chia.', 11, 4.5, 1, 'smoothie', 30, 90],
+    ['10', 's5', 'Bowl légumes rôtis', 'Salade', 'Quinoa, légumes rôtis du marché, avocat et citron beldi.', 12, 5, 7, 'quinoa', 15, 120],
   ]
   for (const [id, shopId, title, category, description, originalPrice, discountPrice, quantity, photo, off, len] of O)
     store.offers.push({ id, shopId, title, category, description, originalPrice, discountPrice, quantity, pickupStart: '12:00', pickupEnd: '14:00', photoUrl: ph(photo), active: true, demoSlot: [off, len], createdAt: new Date(now - Math.random() * 2 * day).toISOString() })

@@ -78,11 +78,11 @@ test('inscription : le compte n’est actif qu’après confirmation de l’e-ma
 
 test('achat : la commande n’est payée qu’après le code reçu par e-mail, puis un reçu avec QR est envoyé', async () => {
   const token = await login('amine@essect.tn')
-  const stockBefore = store.offers.find(o => o.id === '6').quantity
-  const created = await call('POST', '/orders', { items: [{ offerId: '6', qty: 2 }] }, token)
+  const stockBefore = store.offers.find(o => o.id === '4').quantity
+  const created = await call('POST', '/orders', { items: [{ offerId: '4', qty: 2 }] }, token)
   assert.equal(created.status, 201)
   assert.equal(created.body.status, 'pending')
-  assert.equal(store.offers.find(o => o.id === '6').quantity, stockBefore - 2, 'stock bloqué pendant la réservation')
+  assert.equal(store.offers.find(o => o.id === '4').quantity, stockBefore - 2, 'stock bloqué pendant la réservation')
   const id = created.body.id
 
   const declined = await call('POST', `/orders/${id}/pay`, { card: { ...CARD, number: '4000 0000 0000 0002' } }, token)
@@ -126,21 +126,21 @@ test('un code d’achat ne peut pas servir à se connecter (et inversement)', as
 
 test('réservation expirée : annulée automatiquement et stock restitué', async () => {
   const token = await login('amine@essect.tn')
-  const before = store.offers.find(o => o.id === '9').quantity
-  const o = await call('POST', '/orders', { items: [{ offerId: '9', qty: 3 }] }, token)
-  assert.equal(store.offers.find(x => x.id === '9').quantity, before - 3)
+  const before = store.offers.find(o => o.id === '10').quantity
+  const o = await call('POST', '/orders', { items: [{ offerId: '10', qty: 3 }] }, token)
+  assert.equal(store.offers.find(x => x.id === '10').quantity, before - 3)
   store.orders.find(x => x.id === o.body.id).expiresAt = new Date(Date.now() - 1000).toISOString()
   const mine = await call('GET', '/orders/mine', null, token)
   assert.equal(mine.body.find(x => x.id === o.body.id).status, 'cancelled')
-  assert.equal(store.offers.find(x => x.id === '9').quantity, before)
+  assert.equal(store.offers.find(x => x.id === '10').quantity, before)
   const pay = await call('POST', `/orders/${o.body.id}/pay`, { card: CARD }, token)
   assert.equal(pay.status, 409)
 })
 
 test('stock : impossible de réserver plus que disponible ou un produit épuisé', async () => {
   const token = await login('amine@essect.tn')
-  assert.equal((await call('POST', '/orders', { items: [{ offerId: '11', qty: 1 }] }, token)).status, 409) // épuisé
-  assert.equal((await call('POST', '/orders', { items: [{ offerId: '12', qty: 2 }] }, token)).status, 409) // 1 restant
+  assert.equal((await call('POST', '/orders', { items: [{ offerId: '8', qty: 1 }] }, token)).status, 409) // épuisé
+  assert.equal((await call('POST', '/orders', { items: [{ offerId: '9', qty: 2 }] }, token)).status, 409) // 1 restant
   assert.equal((await call('POST', '/orders', { items: [{ offerId: '1', qty: 1 }, { offerId: '2', qty: 1 }] }, token)).status, 400) // deux commerces
 })
 
